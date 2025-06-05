@@ -1,5 +1,5 @@
-entrypoint = "index.html"
-modules = ["web"]
+modules = ["web", "python-3.11"]
+run = "python3 -m http.server 3000"
 
 [nix]
 channel = "stable-24_11"
@@ -8,8 +8,10 @@ packages = ["static-web-server"]
 [deployment]
 publicDir = "/"
 deploymentTarget = "static"
+run = ["sh", "-c", "python3 -m http.server 3000"]
 
 [workflows]
+runButton = "Run"
 
 [[workflows.workflow]]
 name = "Serve static"
@@ -23,6 +25,15 @@ To see changes you make, you can hit the refresh button in the preview, you do \
 Console logs are available in the Preview devtools or your browser devtools.\" && static-web-server -w ./.config/static-web-server.toml > /dev/null 2>&1
 """
 waitForPort = 80
+
+[[workflows.workflow]]
+name = "Run"
+author = 26080706
+mode = "sequential"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "echo \"Serving HTML, open the Preview to see your output. To see changes you make, you can hit the refresh button in the preview, you do not have to stop and run again. Console logs are available in the Preview devtools or your browser devtools.\" && static-web-server -w ./.config/static-web-server.toml > /dev/null 2>&1"
 
 [[ports]]
 localPort = 80
