@@ -38,10 +38,43 @@
             --blue: #313a41;
             --white: #fff;
             --cream: #fdfdfd !important;
+            --pmagenta: #982e88;
+            /* Magenta intenso */
+            --pazul: #3a3a5c;
+            /* Lavanda/grisáceo */
+            --pgris: #343e47;
+            /* Gris oscuro */
         }
 
         * {
             font-family: 'Poppins', sans-serif !important;
+        }
+
+        .responsive-list {
+            display: grid;
+            gap: 0.5rem;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .responsive-list li {
+            background: #f0f0f0;
+            padding: 0.5rem;
+            border-radius: 4px;
+        }
+
+        .row.amenidades {
+            --bs-gutter-x: 0;
+        }
+
+        .icon {
+            fill: var(--white);
+        }
+
+        [id*=error] {
+            color: #ff3d3d;
         }
 
         .playa .banner {
@@ -51,7 +84,7 @@
         }
 
         .card-tipo .card-caption .cc-inner .tag {
-            background-color: #313e48;
+            background-color: #982e88;
         }
 
         .tipo-hogar .contw .title-s1,
@@ -67,12 +100,12 @@
 
         .btn.btn-solid,
         .tipo-hogar .filtro-cont .btn-solid.btn {
-            background: var(--white);
+            background: var(--pmagenta);
         }
 
         .btn.btn-solid:focus,
         .btn.btn-solid:hover {
-            background: var(--white);
+            background: var(--pmagenta);
         }
 
         .main-footer {
@@ -211,10 +244,11 @@
 
         section#home {
             padding-top: 0 !important;
+            background-color: var(--pazul);
         }
 
         .formulario {
-            background-color: #171323;
+            background-color: var(--pazul);
         }
 
         .formulario form .form-group .input-group .input-group-text {
@@ -224,7 +258,7 @@
         }
 
         button#submitForm {
-            background: var(--cream);
+            background: var(--pmagenta);
         }
 
         .formulario {
@@ -418,7 +452,7 @@
 
         .btn.btn-solid,
         .tipo-hogar .filtro-cont .btn-solid.btn {
-            color: var(--blue);
+            color: var(--white);
         }
 
         .crema {
@@ -569,11 +603,11 @@
         </a>
     </div>
 
-    <a href="#contacto" class="btn btn-flotante btn-solid scroll">Solicita información <svg width="10" height="15"
-            viewBox="0 0 20 25" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-top: -4px;">
+    <a href="#contacto" class="btn btn-flotante btn-solid scroll">Solicita información <svg class="icon" width="10"
+            height="15" viewBox="0 0 20 25" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-top: -4px;">
             <path
-                d="M11.1786 20.215L18.3335 12.6263L20 14.3938L10 25L9.16677 24.1162L0 14.3938L1.66647 12.6263L8.82145 20.215L8.82145 0L11.1786 0L11.1786 20.215Z"
-                fill="#323a40"></path>
+                d="M11.1786 20.215L18.3335 12.6263L20 14.3938L10 25L9.16677 24.1162L0 14.3938L1.66647 12.6263L8.82145 20.215L8.82145 0L11.1786 0L11.1786 20.215Z">
+            </path>
         </svg></a>
     <div class="main-banner">
         <div class="frase">
@@ -594,12 +628,12 @@
                             </div>
                         </div>
                     </section>
-                    <a href="#contacto" class="btn  btn-solid scroll mt-4">Solicita información <svg width="10"
-                            height="15" viewBox="0 0 20 25" fill="none" xmlns="http://www.w3.org/2000/svg"
+                    <a href="#contacto" class="btn  btn-solid scroll mt-4">Solicita información <svg class="icon"
+                            width="10" height="15" viewBox="0 0 20 25" xmlns="http://www.w3.org/2000/svg"
                             style="margin-top: -4px;">
                             <path
-                                d="M11.1786 20.215L18.3335 12.6263L20 14.3938L10 25L9.16677 24.1162L0 14.3938L1.66647 12.6263L8.82145 20.215L8.82145 0L11.1786 0L11.1786 20.215Z"
-                                fill="#323a40"></path>
+                                d="M11.1786 20.215L18.3335 12.6263L20 14.3938L10 25L9.16677 24.1162L0 14.3938L1.66647 12.6263L8.82145 20.215L8.82145 0L11.1786 0L11.1786 20.215Z">
+                            </path>
                         </svg></a>
                     <!-- <a href="#tipos"><svg width="20" height="25" viewbox="0 0 20 25" fill="none"
                             xmlns="http://www.w3.org/2000/svg">
@@ -621,7 +655,7 @@
 
     <div>
         <section class="home-section home-full-height bg-dark bg-gradient tipo-hogar .contw .title-s1" id="home"
-            data-background="assets/images/bg.svg" style="height: 555px; background-color: #171323;">
+            data-background="assets/images/bg.svg" style="height: 555px;">
             <div class="titan-caption contw">
                 <div class="caption-content">
                     <img width="250" src="assets/images/Logo-caranday-blanco.png" alt="">
@@ -634,12 +668,12 @@
                         energía eléctrica y agua.
                     </p>
                     <!-- <a class="section-scroll btn btn-border-w btn-round" href="#">cONOCE MÁS</a> -->
-                    <a href="#contacto" class="btn btn-solid btn-sm btn-modal">Estoy interesado <svg width="10"
-                            height="15" viewBox="0 0 20 25" fill="none" xmlns="http://www.w3.org/2000/svg"
+                    <a href="#contacto" class="btn btn-solid btn-sm btn-modal">Estoy interesado <svg class="icon"
+                            width="10" height="15" viewBox="0 0 20 25" xmlns="http://www.w3.org/2000/svg"
                             style="margin-top: -4px;">
                             <path
-                                d="M11.1786 20.215L18.3335 12.6263L20 14.3938L10 25L9.16677 24.1162L0 14.3938L1.66647 12.6263L8.82145 20.215L8.82145 0L11.1786 0L11.1786 20.215Z"
-                                fill="#323a40"></path>
+                                d="M11.1786 20.215L18.3335 12.6263L20 14.3938L10 25L9.16677 24.1162L0 14.3938L1.66647 12.6263L8.82145 20.215L8.82145 0L11.1786 0L11.1786 20.215Z">
+                            </path>
                         </svg></a>
                 </div>
             </div>
@@ -653,7 +687,7 @@
             <div class="contw">
                 <div class="text-center">
                     <div class="title-sm">Descubre tu próximo hogar</div>
-                    <h2 class="title-s1 mt-2">Conoce Caranday II SECTOR BETEL</h2> <br>
+                    <h2 class="title-s1 mt-2">Conoce Caranday II Sector Betel</h2> <br>
                 </div>
                 <div class="row center-proto" style="position: relative; ">
 
@@ -759,38 +793,20 @@
                         </div>
                     </div>
 
-                    <div class="row">
-                        <div class="col-12 col-md-4">
-                            <ul>
-                                <li>Acceso Único</li>
-                                <li>Accesos controlados</li>
-                                <li>Alberca</li>
-                                <li>Andador central</li>
-                                <li>Áreas verdes</li>
-                                <li>Avenida de concreto</li>
-                                <li>Barda perimetral</li>
-                            </ul>
-                        </div>
-                        <div class="col-12 col-md-4">
-                            <ul>
-                                <li>Cableado oculto</li>
-                                <li>Cámaras de seguridad</li>
-                                <li>Cancha de fútbol rápido</li>
-                                <li>Casa club</li>
-                                <li>Cerca eléctrica</li>
-                                <li>Cisterna de agua potable</li>
-                                <li>Contenedor de residuos</li>
-                            </ul>
-                        </div>
-                        <div class="col-12 col-md-4">
-                            <ul>
-                                <li>Ejercicio al aire libre</li>
-                                <li>Hito acceso principal</li>
-                                <li>Juegos infantiles</li>
-                                <li>Pet park</li>
-                                <li>Trotapista</li>
-                            </ul>
-                        </div>
+                    <div class="row amenidades">
+                        <ul class="responsive-list">
+                            <li>Acceso Único</li>
+                            <li>Accesos controlados</li>
+                            <li>Avenida de concreto</li>
+                            <li>Barda perimetral</li>
+                            <li>Cableado oculto</li>
+                            <li>Cámaras de seguridad</li>
+                            <li>Cerca eléctrica</li>
+                            <li>Cisterna de agua potable</li>
+                            <li>Contenedor de residuos</li>
+                        </ul>
+
+
                     </div>
 
 
