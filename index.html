@@ -361,7 +361,7 @@
             }
 
             .home .home-text p span {
-                font-size: 4.5rem;
+                font-size: 3rem;
             }
         }
 
@@ -508,6 +508,30 @@
                 width: 95%;
             }
         }
+
+        /* col-sm-3: ≥576px */
+        @media (min-width: 576px) {
+            .col-sm-3 {
+                flex: 0 0 auto;
+                width: 25%;
+            }
+        }
+
+        /* col-md-3: ≥768px */
+        @media (min-width: 768px) {
+            .col-md-3 {
+                flex: 0 0 auto;
+                width: 25%;
+            }
+        }
+
+        /* col-lg-3: ≥992px */
+        @media (min-width: 992px) {
+            .col-lg-3 {
+                flex: 0 0 auto;
+                width: 25%;
+            }
+        }
     </style>
 
 
@@ -561,9 +585,10 @@
                         <div class="container">
                             <div class="row">
                                 <div class="home-text">
-                                    <p class="animate-text">
-                                        <span>Tu nuevo hogar</span>
-                                    <p>Más amplitud, más tranquilidad, más lujo</p>
+                                    <p class="animate-text fs-1">
+                                        <span>Exclusividad con altura sin igual</span>
+                                    <p>Gran altura , Acabados de primera, Espacios amplios
+                                    </p>
                                     </p>
                                 </div>
                             </div>
@@ -594,21 +619,20 @@
         <script>const vidbanner = document.querySelector("#videoBanner"); vidbanner.play();</script>
     </div>
 
-    <div style="padding-bottom: 50px;">
+    <div>
         <section class="home-section home-full-height bg-dark bg-gradient tipo-hogar .contw .title-s1" id="home"
             data-background="assets/images/bg.svg" style="height: 555px; background-color: #171323;">
             <div class="titan-caption contw">
                 <div class="caption-content">
                     <img width="250" src="assets/images/Logo-caranday-blanco.png" alt="">
                     <!-- <h2 class=" title-s1 aos-init aos-animate crema" data-aos="fade-up">Arbore Residencial: </h2> -->
-                    <p class="aos-init aos-animate mt-4 mb-4" data-aos="fade-up" style="color: #fff;">Vive la comodidad
-                        en cualquiera de nuestras casas inteligentes, diseñadas con amplios espacios, techos altos y
-                        vistas excepcionales que realzan tu experiencia diaria. Disfruta de amenidades como una cancha
-                        multiusos, alberca, pet park, trotapista y hermosas áreas verdes. Ubicado estratégicamente al
-                        sur, en la zona de Santa Mónica, este fraccionamiento garantiza una alta plusvalía y un estilo
-                        de vida inigualable. Además, nuestras casas cuentan con certificación EDGE, posicionando al
-                        desarrollo como un referente en sostenibilidad y brindándote un ahorro de hasta un 30% en el
-                        consumo de energía eléctrica y agua.</p>
+                    <p class="aos-init aos-animate mt-4 mb-4" data-aos="fade-up" style="color: #fff;">Descubre nuestras
+                        casas inteligentes con diseño moderno, con gran altura y vistas increíbles. Ubicado en la
+                        exclusiva zona de Santa Mónica, este fraccionamiento te ofrece alta plusvalía y un estilo de
+                        vida único. Además, nuestras casas cuentan con certificación EDGE, posicionando al desarrollo
+                        como un referente en sostenibilidad y brindándote un ahorro de hasta un 30% en el consumo de
+                        energía eléctrica y agua.
+                    </p>
                     <!-- <a class="section-scroll btn btn-border-w btn-round" href="#">cONOCE MÁS</a> -->
                     <a href="#contacto" class="btn btn-solid btn-sm btn-modal">Estoy interesado <svg width="10"
                             height="15" viewBox="0 0 20 25" fill="none" xmlns="http://www.w3.org/2000/svg"
@@ -624,11 +648,11 @@
 
 
 
-    <div id="tipos" style="background-color: #171323;">
+    <div id="tipos" style="background-color: rgb(23 19 35 / 93%);">
         <div class="tipo-hogar">
             <div class="contw">
                 <div class="text-center">
-                    <div class="title-sm">Descubre tu proximo hogar</div>
+                    <div class="title-sm">Descubre tu próximo hogar</div>
                     <h2 class="title-s1 mt-2">Conoce Caranday II</h2> <br>
                 </div>
                 <div class="row center-proto" style="position: relative; ">
@@ -674,9 +698,9 @@
                                     <h3 class="titulo-azul">Blanc</h3><small>Cada uno cuenta con hasta:</small>
                                     <ul class="cc-lista">
                                         <li><img loading="lazy" src="./assets/images/i-t-recamaras.svg" alt="Recámaras"
-                                                width="38" height="24"> <span>3</span></li>
+                                                width="38" height="24"> <span>4</span></li>
                                         <li><img loading="lazy" src="./assets/images/i-t-banos.svg" alt="Baños"
-                                                width="38" height="32"> <span>2</span></li>
+                                                width="38" height="32"> <span>3</span></li>
                                         <li><img loading="lazy" src="./assets/images/i-t-coche.svg"
                                                 alt="Estacionamiento" width="38" height="28"> <span>2</span></li>
                                     </ul>
@@ -705,27 +729,32 @@
                     <!-- <p class="mb-4" data-aos="fade-up"><strong>Cada ciudad en el estado cuenta con una escencia
                                 única.</strong></p> -->
                     <div class="row">
-                        <div class="col-sm-6 col-md-4 item mb-5" data-aos="fade-up">
+                        <div class="col-sm-12 col-md-6 col-lg-3 item mb-5" data-aos="fade-up">
                             <picture>
-                                <source srcset="./assets/images/amenidades/amenidad-alberca.png" type="image/webp"><img
-                                    loading="lazy" src="./assets/images/amenidades/amenidad-alberca.png" alt="Cancún"
-                                    width="522" height="426" class="img-fluid mx-auto d-block">
+                                <source srcset="./assets/images/amenidades/cancha-usos-multiples.png" type="image/webp">
+                                <img loading="lazy" src="./assets/images/amenidades/cancha-usos-multiples.png"
+                                    alt="Cancún" class="img-fluid mx-auto d-block">
                             </picture>
                         </div>
-                        <div class="col-sm-6 col-md-4 item mb-5" data-aos="fade-up">
+                        <div class="col-sm-12 col-md-6 col-lg-3 item mb-5" data-aos="fade-up">
                             <picture>
-                                <source srcset="./assets/images/amenidades/amenidad-juegos-infantiles.png"
-                                    type="image/webp"><img loading="lazy"
-                                    src="./assets/images/amenidades/amenidad-juegos-infantiles.png"
-                                    alt="Playa del Cármen" width="522" height="426" class="img-fluid mx-auto d-block">
+                                <source srcset="./assets/images/amenidades/casa-club-alberca.png" type="image/webp"><img
+                                    loading="lazy" src="./assets/images/amenidades/casa-club-alberca.png"
+                                    alt="Playa del Cármen" class="img-fluid mx-auto d-block">
                             </picture>
                         </div>
-                        <div class="col-sm-6 col-md-4 item mb-5" data-aos="fade-up">
+                        <div class="col-sm-12 col-md-6 col-lg-3 item mb-5" data-aos="fade-up">
                             <picture>
-                                <source srcset="./assets/images/amenidades/amenidad-cancha-deportiva.png"
-                                    type="image/webp"><img loading="lazy"
-                                    src="./assets/images/amenidades/amenidad-cancha-deportiva.png" alt="Tulum"
-                                    width="522" height="426" class="img-fluid mx-auto d-block">
+                                <source srcset="./assets/images/amenidades/juegos-infantiles.png" type="image/webp"><img
+                                    loading="lazy" src="./assets/images/amenidades/juegos-infantiles.png" alt="Tulum"
+                                    class="img-fluid mx-auto d-block">
+                            </picture>
+                        </div>
+                        <div class="col-sm-12 col-md-6 col-lg-3 item mb-5" data-aos="fade-up">
+                            <picture>
+                                <source srcset="./assets/images/amenidades/pet-park.png" type="image/webp"><img
+                                    loading="lazy" src="./assets/images/amenidades/pet-park.png" alt="Tulum"
+                                    class="img-fluid mx-auto d-block">
                             </picture>
                         </div>
                     </div>
