@@ -54,6 +54,24 @@
             font-family: 'Poppins', sans-serif !important;
         }
 
+        .loader-spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid #fff;
+            border-radius: 50%;
+            border-top-color: #333;
+            animation: spin 0.8s ease-in-out infinite;
+            vertical-align: middle;
+            margin-left: 10px;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
         select {
             display: none;
         }
@@ -374,7 +392,7 @@
 
         .home {
             /* height: 100vh; */
-            background-image: url("images/bg.jpg");
+            /* background-image: url("images/bg.jpg"); */
             background-size: cover;
             background-position: center;
             display: flex;
@@ -946,7 +964,7 @@
                                         <label for="email">Email*</label>
                                         <input class="form-control" maxlength="80" name="email" size="20" type="email"
                                             title="El email no es válido"
-                                            pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" required />
+                                            pattern="^[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}$" required />
                                     </div>
                                 </div>
 
@@ -1105,11 +1123,13 @@
     </script>
 
     <script>
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbzPmJp2kdSpp1UaMG-Irgry0w2miSo3Fo6oLZgYGuZqNobyVPXioyUoFjs1nK_qo351/exec';
+
         const d = document;
         const $form = d.querySelector(".contact-form"),
             $inputs = d.querySelectorAll(".contact-form [required]");
 
-        // Crear spans para mostrar errores bajo cada input requerido
+        // Mensajes de error por input
         $inputs.forEach(input => {
             const $span = d.createElement("span");
             $span.id = input.name;
@@ -1118,7 +1138,46 @@
             input.insertAdjacentElement("afterend", $span);
         });
 
-        // Validación en tiempo real con patrón y mostrar/ocultar mensaje
+        $form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const formData = new FormData($form);
+
+            try {
+                // 1. Enviar a Google Sheets
+                const response = await fetch(scriptURL, {
+                    method: 'POST',
+                    body: formData
+                });
+
+                if (!response.ok) {
+                    throw new Error('Error al enviar a Google Sheets');
+                }
+
+                // 2. Enviar a Salesforce con redirección (retURL)
+                const tempForm = document.createElement('form');
+                tempForm.action = $form.action;
+                tempForm.method = 'POST';
+                tempForm.style.display = 'none';
+
+                for (let [key, value] of formData.entries()) {
+                    const input = document.createElement('input');
+                    input.type = 'hidden';
+                    input.name = key;
+                    input.value = value;
+                    tempForm.appendChild(input);
+                }
+
+                document.body.appendChild(tempForm);
+                tempForm.submit(); // Aquí Salesforce redirige a la retURL
+
+            } catch (error) {
+                console.error('Error al enviar formulario:', error);
+                alert('Hubo un problema al enviar el formulario. Intenta de nuevo.');
+            }
+        });
+
+        // Validaciones en tiempo real
         d.addEventListener("keyup", (e) => {
             if (e.target.matches(".contact-form [required]")) {
                 const $input = e.target;
@@ -1127,76 +1186,48 @@
 
                 if (pattern && $input.value !== "") {
                     const regex = new RegExp(pattern);
-                    const isValid = regex.test($input.value);
-
-                    if (!isValid) {
-                        $errorSpan.classList.add("is-active");
-                    } else {
-                        $errorSpan.classList.remove("is-active");
-                    }
+                    $errorSpan.classList.toggle("is-active", !regex.test($input.value));
                 } else {
                     $errorSpan.classList.remove("is-active");
                 }
             }
         });
 
+        // Control de campos y botón
         document.addEventListener("DOMContentLoaded", function () {
-            const telefonoInput = document.querySelector('input[name="phone"]');
-            const emailInput = document.querySelector('input[name="email"]');
-            const first_nameInput = document.querySelector('input[name="first_name"]');
-            const checkboxTerminos = document.getElementById('aviso');
-            const botonEnviar = document.getElementById('enviar');
+            const telefonoInput = d.querySelector('input[name="phone"]');
+            const emailInput = d.querySelector('input[name="email"]');
+            const first_nameInput = d.querySelector('input[name="first_name"]');
+            const checkboxTerminos = d.getElementById('aviso');
+            const botonEnviar = d.getElementById('enviar');
 
-            // Función para validar campos y checkbox y controlar botón
             function validarBoton() {
-                const telefonoVal = telefonoInput.value.trim();
-                const emailVal = emailInput.value.trim();
-                const firstNameVal = first_nameInput.value.trim();
-
-                if (telefonoVal !== "" && emailVal !== "" && firstNameVal !== "" && checkboxTerminos.checked) {
-                    botonEnviar.disabled = false;
-                } else {
-                    botonEnviar.disabled = true;
-                }
+                const t = telefonoInput.value.trim();
+                const e = emailInput.value.trim();
+                const n = first_nameInput.value.trim();
+                botonEnviar.disabled = !(t && e && n && checkboxTerminos.checked);
             }
 
-            // Normalizar y limitar teléfono a 10 dígitos
             telefonoInput.addEventListener('input', function () {
-                let valor = this.value.trim();
-                valor = valor.replace(/\D/g, '').substring(0, 10);
-                this.value = valor;
+                this.value = this.value.replace(/\D/g, '').substring(0, 10);
                 validarBoton();
             });
 
-            // Solo letras y espacios en nombre, máximo 80 caracteres
             first_nameInput.addEventListener('input', function () {
-                let valor = this.value;
-                let newValue = '';
-                for (let i = 0; i < valor.length; i++) {
-                    const char = valor.charAt(i);
-                    if (/^[A-Za-zÁáÉéÍíÓóÚúÜüÑñ\s]$/.test(char)) {
-                        newValue += char;
-                    }
-                }
-                this.value = newValue.substring(0, 80);
+                this.value = this.value.replace(/[^A-Za-zÁÉÍÓÚÜÑáéíóúüñ\s]/g, '').substring(0, 80);
                 validarBoton();
             });
 
-            // Limitar email a 100 caracteres y quitar espacios inicio/fin
             emailInput.addEventListener('input', function () {
-                let valor = this.value.trim();
-                if (valor.length > 100) valor = valor.substring(0, 100);
-                this.value = valor;
+                this.value = this.value.trim().substring(0, 100);
                 validarBoton();
             });
 
-            // Checkbox
             checkboxTerminos.addEventListener('change', validarBoton);
-
-            // Inicializar botón deshabilitado
             botonEnviar.disabled = true;
         });
     </script>
+
 
 
 </body>
