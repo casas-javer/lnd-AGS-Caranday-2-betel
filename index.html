@@ -613,7 +613,19 @@
             }
         }
     </style>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-38D897N597"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() {dataLayer.push(arguments);}
+        gtag('js', new Date());
 
+        gtag('config', 'G-38D897N597', {
+            'linker': {
+                'domains': ['javer.com.mx', 'carandayresidencial.com']
+            }
+        });
+    </script>
 
 </head>
 
@@ -878,7 +890,7 @@
                     </div>
                 </div>
                 <div class="col-md-7">
-                    <div class="formulario">
+                    <div style="position: relative;" class="formulario">
                         <h2>Déjanos tu mensaje</h2>
                         <p class="mb-4 text-white">Un asesor se pondrá en contacto a la brevedad.</p>
 
@@ -898,9 +910,10 @@
                         <!--  NOTE: Please add the following <FORM> element to your page.             -->
                         <!--  ----------------------------------------------------------------------  -->
 
-                        <form class="contacto-outer contact-form "
+                        <form class="contacto-outer contact-form ">
+                            <!-- <form class="contacto-outer contact-form "
                             action="https://webto.salesforce.com/servlet/servlet.WebToLead?encoding=UTF-8&orgId=00Do0000000b6Io"
-                            method="POST">
+                            method="POST"> -->
 
                             <input type=hidden name='captcha_settings'
                                 value='{"keyname":"CAPCHA_CarandayRecidencial","fallback":"true","orgId":"00Do0000000b6Io","ts":""}'>
@@ -1013,6 +1026,20 @@
                             </div>
                         </form>
 
+                        <div id="loader" style="
+                            display: none;
+                            position: absolute;
+                            top: 50%;
+                            left: 50%;
+                            transform: translate(-50%, -50%);
+                            font-weight: bold;
+                            background: white;
+                            padding: 1rem 2rem;
+                            border-radius: 10px;
+                            box-shadow: 0 0 10px #ccc;
+                            z-index: 9999;">
+                            Enviando...
+                        </div>
 
 
                     </div>
@@ -1122,14 +1149,14 @@
 
     </script>
 
-    <script>
+    <!-- <script>
         const scriptURL = 'https://script.google.com/macros/s/AKfycbzPmJp2kdSpp1UaMG-Irgry0w2miSo3Fo6oLZgYGuZqNobyVPXioyUoFjs1nK_qo351/exec';
 
         const d = document;
         const $form = d.querySelector(".contact-form"),
             $inputs = d.querySelectorAll(".contact-form [required]");
 
-        // Mensajes de error por input
+        Mensajes de error por input
         $inputs.forEach(input => {
             const $span = d.createElement("span");
             $span.id = input.name;
@@ -1142,9 +1169,16 @@
             e.preventDefault();
 
             const formData = new FormData($form);
+            const loader = d.getElementById('loader');
+            const botonEnviar = d.getElementById('enviar');
 
             try {
-                // 1. Enviar a Google Sheets
+                 Mostrar loader y bloquear
+                $form.style.opacity = "0.3";
+                loader.style.display = "block";
+                botonEnviar.disabled = true;
+
+                 1. Enviar a Google Sheets
                 const response = await fetch(scriptURL, {
                     method: 'POST',
                     body: formData
@@ -1154,7 +1188,7 @@
                     throw new Error('Error al enviar a Google Sheets');
                 }
 
-                // 2. Enviar a Salesforce con redirección (retURL)
+                 2. Enviar a Salesforce
                 const tempForm = document.createElement('form');
                 tempForm.action = $form.action;
                 tempForm.method = 'POST';
@@ -1169,15 +1203,21 @@
                 }
 
                 document.body.appendChild(tempForm);
-                tempForm.submit(); // Aquí Salesforce redirige a la retURL
+                tempForm.submit();  Redirige a retURL de Salesforce
 
             } catch (error) {
                 console.error('Error al enviar formulario:', error);
                 alert('Hubo un problema al enviar el formulario. Intenta de nuevo.');
+
+                 Ocultar loader en error
+                $form.style.opacity = "1";
+                loader.style.display = "none";
+                botonEnviar.disabled = false;
             }
         });
 
-        // Validaciones en tiempo real
+
+         Validaciones en tiempo real
         d.addEventListener("keyup", (e) => {
             if (e.target.matches(".contact-form [required]")) {
                 const $input = e.target;
@@ -1193,7 +1233,7 @@
             }
         });
 
-        // Control de campos y botón
+         Control de campos y botón
         document.addEventListener("DOMContentLoaded", function () {
             const telefonoInput = d.querySelector('input[name="phone"]');
             const emailInput = d.querySelector('input[name="email"]');
@@ -1226,7 +1266,108 @@
             checkboxTerminos.addEventListener('change', validarBoton);
             botonEnviar.disabled = true;
         });
+    </script> -->
+    <script>
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbzPmJp2kdSpp1UaMG-Irgry0w2miSo3Fo6oLZgYGuZqNobyVPXioyUoFjs1nK_qo351/exec';
+        const d = document;
+
+        const $form = d.querySelector(".contact-form"),
+            $inputs = d.querySelectorAll(".contact-form [required]"),
+            $loader = d.getElementById('loader'),
+            $botonEnviar = d.getElementById('enviar');
+
+        // Mensajes de error por input
+        $inputs.forEach(input => {
+            const $span = d.createElement("span");
+            $span.id = input.name;
+            $span.textContent = input.title;
+            $span.classList.add("contact-form-error", "none");
+            input.insertAdjacentElement("afterend", $span);
+        });
+
+        // Envío del formulario
+        $form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const formData = new FormData($form);
+
+            try {
+                // Mostrar loader y bloquear
+                $form.style.opacity = "0.3";
+                $loader.style.display = "block";
+                $botonEnviar.disabled = true;
+
+                const response = await fetch(scriptURL, {
+                    method: 'POST',
+                    body: formData
+                });
+
+                if (!response.ok) throw new Error('Error al enviar a Google Sheets');
+
+                // Redirigir a página de gracias
+                window.location.href = "https://www.javer.com.mx/gracias?utm_source=google&utm_medium=leads&utm_campaign=betel&utm_term=marketing";
+
+            } catch (error) {
+                console.error('Error al enviar formulario:', error);
+                alert('Hubo un problema al enviar el formulario. Intenta de nuevo.');
+
+                // Restaurar interfaz
+                $form.style.opacity = "1";
+                $loader.style.display = "none";
+                $botonEnviar.disabled = false;
+            }
+        });
+
+        // Validaciones en tiempo real
+        d.addEventListener("keyup", (e) => {
+            if (e.target.matches(".contact-form [required]")) {
+                const $input = e.target;
+                const pattern = $input.pattern || $input.dataset.pattern;
+                const $errorSpan = d.getElementById($input.name);
+
+                if (pattern && $input.value !== "") {
+                    const regex = new RegExp(pattern);
+                    $errorSpan.classList.toggle("is-active", !regex.test($input.value));
+                } else {
+                    $errorSpan.classList.remove("is-active");
+                }
+            }
+        });
+
+        // Control de campos y botón enviar
+        document.addEventListener("DOMContentLoaded", function () {
+            const telefonoInput = d.querySelector('input[name="phone"]');
+            const emailInput = d.querySelector('input[name="email"]');
+            const first_nameInput = d.querySelector('input[name="first_name"]');
+            const checkboxTerminos = d.getElementById('aviso');
+
+            function validarBoton() {
+                const t = telefonoInput.value.trim();
+                const e = emailInput.value.trim();
+                const n = first_nameInput.value.trim();
+                $botonEnviar.disabled = !(t && e && n && checkboxTerminos.checked);
+            }
+
+            telefonoInput.addEventListener('input', function () {
+                this.value = this.value.replace(/\D/g, '').substring(0, 10);
+                validarBoton();
+            });
+
+            first_nameInput.addEventListener('input', function () {
+                this.value = this.value.replace(/[^A-Za-zÁÉÍÓÚÜÑáéíóúüñ\s]/g, '').substring(0, 80);
+                validarBoton();
+            });
+
+            emailInput.addEventListener('input', function () {
+                this.value = this.value.trim().substring(0, 100);
+                validarBoton();
+            });
+
+            checkboxTerminos.addEventListener('change', validarBoton);
+            $botonEnviar.disabled = true;
+        });
     </script>
+
 
 
 
